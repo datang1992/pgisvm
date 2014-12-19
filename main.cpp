@@ -57,7 +57,7 @@ int main()
         if (-info -> x[i].num[0][0] + 3 * info -> x[i].num[1][0] >= 0)
                 info -> y.push_back(1);
         else
-                info -> y.push_back(0);
+                info -> y.push_back(-1);
         
         //cout << "(" << info -> x[i].num[0][0] << ", " << info -> x[i].num[1][0] << ")  " << info -> y[i] << endl;
     }

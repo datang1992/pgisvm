@@ -386,7 +386,7 @@ double cross_validiction(stored_info *info) {
     
     double correct = 0;
     for (int i = 0; i < info -> N; i++) {
-        int prediction = (((info -> eta[info -> z[i]]).transpose() * (info -> x[i])).num[0][0] >= 0) ? 1 : 0;
+        int prediction = (((info -> eta[info -> z[i]]).transpose() * (info -> x[i])).num[0][0] >= 0) ? 1 : -1;
         if (prediction == info -> y[i]) {
             correct += 1;
         }
