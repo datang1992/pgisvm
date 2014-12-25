@@ -251,6 +251,8 @@ void sampling_supercluster_parameters(stored_info *info) {
     for (int i = 0; i < info -> K; i++) {
         Mark[i] = false;
     }
+    
+    clock_t start = clock();
     for (int i = 0; i < info -> K; i++) {
         if (!Mark[i]) {
             Mark[i] = true;
@@ -258,6 +260,9 @@ void sampling_supercluster_parameters(stored_info *info) {
             DFS(i, new_mark, info -> K, Mark, node, p);
         }
     }
+    clock_t end = clock();
+    
+    cout << "For DFS: " << double(end - start) / CLOCKS_PER_SEC << endl;
     delete[] Mark;
     delete[] node;
     
@@ -358,7 +363,8 @@ void train(stored_info *info) {
     
     for (int i = 0; i < info -> number_of_iterations; i++) {
         //cout << "Iteration " << i << " starts!\n";
-        double *alpha = new double[(info -> K) + 1], *theta = new double[(info -> K) + 1];
+        clock_t start = clock(), start2 = start, finish;
+	double *alpha = new double[(info -> K) + 1], *theta = new double[(info -> K) + 1];
         for (int i = 0; i < info -> K; i++) {
             alpha[i] = info -> Num[i];
         }
@@ -369,13 +375,28 @@ void train(stored_info *info) {
         }
         delete[] alpha;
         delete[] theta;
-        sampling_cluster_parameters(info);
+	finish = clock();
+	cout << "Sampling cluster proportion time: " << double(finish - start2) / CLOCKS_PER_SEC << endl;
+        start2 = finish;
+	sampling_cluster_parameters(info);
         //cout << "Finish sampling cluster parameters!\n";
-        sampling_supercluster_parameters(info);
+        finish = clock();
+	cout << "Sampling cluster parameter time: " << double(finish - start2) / CLOCKS_PER_SEC << endl;
+	start2 = finish;
+	sampling_supercluster_parameters(info);
         //cout << "Finish sampling supercluster parameters!\n";
-        sampling_data_parameters(info);
-        //cout << "Finish sampling data parameters!\n";
+        finish = clock();
+        cout << "Sampling supercluster parameter time: " << double(finish - start) / CLOCKS_PER_SEC << endl;
+        start2 =  finish;
+	sampling_data_parameters(info);
+	finish = clock();
+        cout << "Sampling data parameter time: " << double(finish - start2) / CLOCKS_PER_SEC << endl;
+        start2=  finish;
+	//cout << "Finish sampling data parameters!\n";
         splitting_clusters(info);
+	finish = clock();
+        cout << "Splitting clusters time: " << double(finish - start2) / CLOCKS_PER_SEC << endl;
+        cout << "Total time: " << double(finish - start) / CLOCKS_PER_SEC << endl;
         cout << "Iteration " << i << " finishes!\n";
     }
     
@@ -386,7 +407,7 @@ double cross_validiction(stored_info *info) {
     
     double correct = 0;
     for (int i = 0; i < info -> N; i++) {
-        int prediction = (((info -> eta[info -> z[i]]).transpose() * (info -> x[i])).num[0][0] >= 0) ? 1 : -1;
+        int prediction = (((info -> eta[info -> z[i]]).transpose() * (info -> x[i])).num[0][0] >= 0) ? 1 : 0;
         if (prediction == info -> y[i]) {
             correct += 1;
         }

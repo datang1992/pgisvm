@@ -46,7 +46,7 @@ int main()
 	gsl_rng_free(rand_gen);
 	*/
     
-    int N = 1000, dim = 2;
+    int N = 150000, dim = 2;
     matrix mu = matrix(dim, 1), sigma = matrix(dim, -2);
     
     stored_info *info = new stored_info(N, dim);
@@ -57,7 +57,7 @@ int main()
         if (-info -> x[i].num[0][0] + 3 * info -> x[i].num[1][0] >= 0)
                 info -> y.push_back(1);
         else
-                info -> y.push_back(-1);
+                info -> y.push_back(0);
         
         //cout << "(" << info -> x[i].num[0][0] << ", " << info -> x[i].num[1][0] << ")  " << info -> y[i] << endl;
     }
