@@ -118,7 +118,7 @@ void sampling_cluster_parameters(stored_info *info) {
         info -> eta[i] = sampling_from_gaussian(mu, sigma);
         info -> b[i] = sampling_from_gaussian(mu2, sigma2);
         if (i == 0) {
-            cout << mu2 << ' ' << sigma2 << ' ' << info -> b[i] << ' ' << mu.num[0][0] << ' ' << sigma.num[0][0] << endl;
+            //cout << mu2 << ' ' << sigma2 << ' ' << info -> b[i] << ' ' << mu.num[0][0] << ' ' << sigma.num[0][0] << endl;
         }
         
         info -> Num[i] = 0;
@@ -412,7 +412,7 @@ double cross_validiction(stored_info *info) {
     
     double correct = 0;
     for (int i = 0; i < info -> N; i++) {
-        int prediction = ((((info -> eta[info -> z[i]]).transpose() * (info -> x[i])).num[0][0] + 1 * (info -> b[info -> z[i]])) >= 0) ? 1 : 0;
+        int prediction = ((((info -> eta[info -> z[i]]).transpose() * (info -> x[i])).num[0][0] + 1 * (info -> b[info -> z[i]])) >= 0) ? 1 : -1;
         if (prediction == info -> y[i]) {
             correct += 1;
         }

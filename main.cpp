@@ -54,10 +54,10 @@ int main()
     
     for (int i = 0; i < N; i++) {
         info -> x.push_back(sampling_from_gaussian(mu, sigma));
-        if (-info -> x[i].num[0][0] +  info -> x[i].num[1][0] >= 0)
+        if (-info -> x[i].num[0][0] +  info -> x[i].num[1][0] >= 0.5)
                 info -> y.push_back(1);
         else
-                info -> y.push_back(0);
+                info -> y.push_back(-1);
         
         //cout << "(" << info -> x[i].num[0][0] << ", " << info -> x[i].num[1][0] << ")  " << info -> y[i] << endl;
     }

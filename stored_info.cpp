@@ -16,7 +16,7 @@ stored_info::stored_info()
 
 stored_info::stored_info(int n, int Dim)
 {
-	number_of_iterations = 100;
+	number_of_iterations = 1000;
     	initial_clusters_number = 10 * log(n);
 	initial_m = 1;
 	initial_n0 = 1;
