@@ -54,7 +54,7 @@ int main()
     
     for (int i = 0; i < N; i++) {
         info -> x.push_back(sampling_from_gaussian(mu, sigma));
-        if (-info -> x[i].num[0][0] + 3 * info -> x[i].num[1][0] >= 0)
+        if (-info -> x[i].num[0][0] +  info -> x[i].num[1][0] >= 0.5)
                 info -> y.push_back(1);
         else
                 info -> y.push_back(-1);
@@ -67,7 +67,7 @@ int main()
     
     for (int i = 0; i < info -> K; i++) {
         if (info -> Num[i]) {
-            cout << "Classifier " << i << ": Num = " << info -> Num[i] << ", eta = (" << info -> eta[i].num[0][0] << ", " << info -> eta[i].num[1][0] << ")" << endl;
+            cout << "Classifier " << i << ": Num = " << info -> Num[i] << ", eta = (" << info -> eta[i].num[0][0] << ", " << info -> eta[i].num[1][0] << ")" << ", b = " << info -> b[i] << endl;
         }
     }
     

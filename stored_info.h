@@ -32,6 +32,7 @@ class stored_info
 		vector<int> lr;		
 		//vector<double> split_probability;
 		vector<matrix> eta, eta_l, eta_r;
+		vector<double> b, b_l, b_r;
 		vector<matrix> gamma_mu, gamma_sigma, gamma_mu_l, gamma_sigma_l, gamma_mu_r, gamma_sigma_r;
 
 		vector<matrix> gamma_mu0, gamma_mu0_l, gamma_mu0_r, gamma_mu0_s;
@@ -60,7 +61,7 @@ class stored_info
 
 		vector<double> omega;
 
-		double C, l, nu;
+		double C, l, nu, nu2;
 		double alpha;
 		
 		long rand_seed;
